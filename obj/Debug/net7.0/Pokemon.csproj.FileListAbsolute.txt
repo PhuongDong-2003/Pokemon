@@ -1,5 +1,0 @@
-D:\FPT_Telecom\Pokemon\obj\Debug\net7.0\Pokemon.csproj.AssemblyReference.cache
-D:\FPT_Telecom\Pokemon\obj\Debug\net7.0\Pokemon.GeneratedMSBuildEditorConfig.editorconfig
-D:\FPT_Telecom\Pokemon\obj\Debug\net7.0\Pokemon.AssemblyInfoInputs.cache
-D:\FPT_Telecom\Pokemon\obj\Debug\net7.0\Pokemon.AssemblyInfo.cs
-D:\FPT_Telecom\Pokemon\obj\Debug\net7.0\Pokemon.csproj.CoreCompileInputs.cache
