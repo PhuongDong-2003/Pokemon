@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Move
+    public class MoveInfo
     {
-        public string Name { get; set; }
+       public Move Move { get; set; }
     }
 }

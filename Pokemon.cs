@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Move
+    public class Pokemon
     {
         public string Name { get; set; }
+        public List<MoveInfo> Moves { get; set; }
+
     }
 }

@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using RestSharp;
 namespace Pokemon
 {
-    public class Move
+    public interface IPokemonIput
     {
-        public string Name { get; set; }
+        List<string> ParseArgs(string[] args);
+        
+     
+
     }
 }
