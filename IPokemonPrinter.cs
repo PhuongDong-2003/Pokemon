@@ -8,8 +8,9 @@ namespace Pokemon
 {
     public interface IPokemonPrinter
     {
-         public void Print(Pokemon pokemon){
-        
-         }
+       public void PrintRelatedPokemons(List<string> relatedPokemons)
+        {
+
+        }
     }
 }

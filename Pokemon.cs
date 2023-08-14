@@ -9,6 +9,13 @@ namespace Pokemon
     {
         public string Name { get; set; }
         public List<MoveInfo> Moves { get; set; }
-
+        public Pokemon()
+    {
+    }
+     public Pokemon(string name)
+    {
+        Name = name;
+    }
+        
     }
 }

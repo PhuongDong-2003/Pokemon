@@ -7,12 +7,20 @@ namespace Pokemon
 {
     public class PokemonPrinter : IPokemonPrinter
     {
-        // public void Print(Pokemon pokemon)
-        // {
-        //     foreach (string  pokemons in pokemon)
-        //     {
-        //         Console.WriteLine(pokemon);
-        //     }
-        // }
+        public  void PrintRelatedPokemons(List<string> relatedPokemons)
+        {
+            if (relatedPokemons.Count > 0)
+            {
+                Console.WriteLine("Danh sách Pokémon có liên quan:");
+                foreach (string pokemon in relatedPokemons)
+                {
+                    Console.WriteLine(pokemon);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Không tìm thấy Pokémon có liên quan.");
+            }
+        }
     }
 }

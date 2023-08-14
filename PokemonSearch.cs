@@ -3,44 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RestSharp;
+using System.Runtime.Serialization.Json;
+using System.IO;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
+
 
 namespace Pokemon
 {
-   
+
     public class PokemonSearch : IPokemonSearch
     {
+        private const string ApiBaseUrl = "https://pokeapi.co/api/v2/move/";
+
         public List<Move> GetMoves(List<string> moveNames)
         {
-           List<Move> moves = new List<Move>();
+            List<Move> moves = new List<Move>();
 
-        foreach (string moveName in moveNames)
-        {
-            var client = new RestClient(moveName);
-            var request = new RestRequest(Method.GET);
-
-            IRestResponse response = client.Execute(request);
-
-            if (response.IsSuccessful)
+            foreach (string moveName in moveNames)
             {
-              var move = JsonSerializer.Deserialize<Move>(response.Content);
-                moves.Add(move);
+                Move move = GetMoveByName(moveName).Result;
+                if (move != null)
+                {
+                    moves.Add(move);
+                }
             }
-        }
 
-        return moves;
+            return moves;
         }
 
         public List<string> GetPokemonFromMoveList(List<Move> moves)
         {
-            List<string> pokemons = new List<string>();
+            List<string> relatedPokemon = new List<string>();
 
-        foreach (Move move in moves)
+            foreach (Move move in moves)
+            {
+                if (move.learned_by_pokemon != null)
+                {
+                    foreach (Move.PokemonLearn pokemonLearn in move.learned_by_pokemon)
+                    {
+                        relatedPokemon.Add(pokemonLearn.name);
+                    }
+                }
+            }
+
+            return relatedPokemon;
+        }
+
+        private async Task<Move> GetMoveByName(string moveName)
         {
-            pokemons.Add($"Pokemon related to {move.Name}");
+            HttpClient httpClient = new HttpClient();
+
+            var response = await httpClient.GetAsync(ApiBaseUrl + "" + moveName);
+            var strContent = await response.Content.ReadAsStringAsync();
+            Move move = JsonSerializer.Deserialize<Move>(strContent);
+            return move;
         }
 
-        return pokemons;
-        }
+
+
     }
 }
