@@ -7,7 +7,7 @@ namespace Pokemon
 {
     public interface IPokemonSearch
     {
-        List<Move> GetMoves(List<string> moveNames);
+       Task<List<Move>> GetMoves(List<string> moveNames);
         List<string> GetPokemonFromMoveList(List<Move> moves);
     }
 }

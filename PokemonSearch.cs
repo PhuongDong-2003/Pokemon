@@ -15,21 +15,22 @@ namespace Pokemon
     {
         private const string ApiBaseUrl = "https://pokeapi.co/api/v2/move/";
 
-        public List<Move> GetMoves(List<string> moveNames)
+        public async Task<List<Move>> GetMoves(List<string> moveNames)
         {
-            List<Move> moves = new List<Move>();
+
+            var moveTasks = new List<Task<Move>>();
 
             foreach (string moveName in moveNames)
             {
-                Move move = GetMoveByName(moveName).Result;
-                if (move != null)
-                {
-                    moves.Add(move);
-                }
+                var moveTask = GetMoveByName(moveName);
+                moveTasks.Add(moveTask);
             }
 
-            return moves;
+            var moves = await Task.WhenAll(moveTasks);
+
+            return moves.Where(x => x is not null).ToList();
         }
+
         private async Task<Move> GetMoveByName(string moveName)
         {
             HttpClient httpClient = new HttpClient();
@@ -60,15 +61,12 @@ namespace Pokemon
                 var l = move.learned_by_pokemon.Select(x => x.name).ToList();
                 movesByPokemon.Add(l);
             }
-
             var a = movesByPokemon.First();
 
-            foreach ( List<string> b in movesByPokemon)
+            foreach (List<string> b in movesByPokemon)
             {
                 a = a.Intersect(b).ToList();
             }
-
-
             return a;
         }
 
