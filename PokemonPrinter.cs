@@ -11,7 +11,7 @@ namespace Pokemon
         {
             if (relatedPokemons.Count > 0)
             {
-                Console.WriteLine("Danh sách Pokémon có liên quan:");
+                Console.WriteLine($"Danh sách Pokémon có liên quan đến chiêu thức :");
                 foreach (string pokemon in relatedPokemons)
                 {
                     Console.WriteLine(pokemon);

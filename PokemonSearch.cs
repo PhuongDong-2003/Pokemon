@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RestSharp;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Text.Json;
-using Newtonsoft.Json.Linq;
 using System.Net.Http;
 
 
@@ -42,7 +40,7 @@ namespace Pokemon
             if (response.IsSuccessStatusCode)
             {
                 Move move = JsonSerializer.Deserialize<Move>(strContent);
-                 Console.WriteLine($"Move '{moveName}' find .");
+                Console.WriteLine($"Move '{moveName}' find.");
                 return move;
             }
             else
@@ -56,19 +54,22 @@ namespace Pokemon
         public List<string> GetPokemonFromMoveList(List<Move> moves)
         {
             List<string> relatedPokemon = new List<string>();
-
+            List<List<string>> movesByPokemon = new List<List<string>>();
             foreach (Move move in moves)
             {
-                if (move.learned_by_pokemon != null)
-                {
-                    foreach (Move.PokemonLearn pokemonLearn in move.learned_by_pokemon)
-                    {
-                        relatedPokemon.Add(pokemonLearn.name);
-                    }
-                }
+                var l = move.learned_by_pokemon.Select(x => x.name).ToList();
+                movesByPokemon.Add(l);
             }
 
-            return relatedPokemon;
+            var a = movesByPokemon.First();
+
+            foreach ( List<string> b in movesByPokemon)
+            {
+                a = a.Intersect(b).ToList();
+            }
+
+
+            return a;
         }
 
 
