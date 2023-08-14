@@ -32,6 +32,26 @@ namespace Pokemon
 
             return moves;
         }
+        private async Task<Move> GetMoveByName(string moveName)
+        {
+            HttpClient httpClient = new HttpClient();
+
+            var response = await httpClient.GetAsync(ApiBaseUrl + "" + moveName);
+            var strContent = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                Move move = JsonSerializer.Deserialize<Move>(strContent);
+                 Console.WriteLine($"Move '{moveName}' find .");
+                return move;
+            }
+            else
+            {
+                Console.WriteLine($"Move '{moveName}' not found.");
+                return null;
+            }
+
+        }
 
         public List<string> GetPokemonFromMoveList(List<Move> moves)
         {
@@ -51,15 +71,7 @@ namespace Pokemon
             return relatedPokemon;
         }
 
-        private async Task<Move> GetMoveByName(string moveName)
-        {
-            HttpClient httpClient = new HttpClient();
 
-            var response = await httpClient.GetAsync(ApiBaseUrl + "" + moveName);
-            var strContent = await response.Content.ReadAsStringAsync();
-            Move move = JsonSerializer.Deserialize<Move>(strContent);
-            return move;
-        }
 
 
 
