@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class PokemonInput : IPokemonIput
+    public class PokemonInput : IPokemonInput
     {
         public List<string> ParseArgs(string[] args)
         {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using RestSharp;
 namespace Pokemon
 {
-    public interface IPokemonIput
+    public interface IPokemonInput
     {
         List<string> ParseArgs(string[] args);
         
